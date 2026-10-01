@@ -303,10 +303,10 @@
        WHATSAPP CONTACT PICKER — pilih admin sebelum chat
        ========================================================== */
     const WA_CONTACTS = [
-        { label:'Sales Handler',                   sub:'Sales',  phone:'+62 858-9052-3210' },
+        { label:'Sales Handler',                   sub:'Sales',  phone:'+62 858-9052-3210', rec:true },
         { label:'Admin AION (markom_aion)',        sub:'Home',   phone:'+62 878-1883-0840' },
         { label:'Counter AION Smart Tunjungan',     sub:'Mobile', phone:'+62 851-9591-6800' }
-    ];
+    ].sort((a,b)=>(b.rec?1:0)-(a.rec?1:0));
     function cleanPhone(p){ return p.replace(/\D/g,''); }
 
     let pendingWa = null;
@@ -321,8 +321,11 @@
                 <button class="wa-picker-close" aria-label="Tutup">&times;</button>
                 <h3>Mau chat dengan siapa?</h3>
                 <div class="wa-picker-list">
-                    ${WA_CONTACTS.map((c,i)=>`<button class="wa-picker-item" data-idx="${i}">
-                        <span class="wa-picker-name">${c.label}</span>
+                    ${WA_CONTACTS.map((c,i)=>`<button class="wa-picker-item${c.rec?' is-rec':''}" data-idx="${i}">
+                        <span class="wa-picker-top">
+                            <span class="wa-picker-name">${c.label}</span>
+                            ${c.rec?'<span class="wa-picker-badge">Direkomendasikan</span>':''}
+                        </span>
                         <span class="wa-picker-phone">${c.phone}</span>
                     </button>`).join('')}
                 </div>
@@ -342,8 +345,17 @@
             .wa-picker-list{ display:flex; flex-direction:column; gap:10px; }
             .wa-picker-item{ display:flex; flex-direction:column; align-items:flex-start; gap:3px; padding:13px 15px; border:1px solid #e2e4e8; border-radius:12px; background:#fff; cursor:pointer; text-align:left; transition:background .15s ease,border-color .15s ease; width:100%; }
             .wa-picker-item:hover{ background:#f2fbf6; border-color:#25D366; }
+            .wa-picker-top{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
             .wa-picker-name{ font-weight:600; font-size:14.5px; }
             .wa-picker-phone{ font-size:12.5px; color:#6b7075; }
+            .wa-picker-item.is-rec{ border-color:#25D366; background:#f2fbf6; padding:13px 15px; position:relative; }
+            .wa-picker-item.is-rec::before{ content:""; position:absolute; left:0; top:10px; bottom:10px; width:3px; border-radius:0 3px 3px 0; background:#25D366; }
+            .wa-picker-item.is-rec:hover{ background:#e8f8ee; }
+            .wa-picker-badge{ font-size:12px; font-weight:600; line-height:1; color:#0f7a35; background:#d7f5e2; border:1px solid #a7e6c0; border-radius:20px; padding:4px 9px; white-space:nowrap; }
+            @media (max-width:400px){
+                .wa-picker-panel{ padding:22px 18px; }
+                .wa-picker-badge{ padding:3px 8px; }
+            }
         `;
         document.head.appendChild(style);
 
@@ -446,13 +458,19 @@
             }
             #cookieConsent .cc-text{ flex:1 1 260px; font-size:13px; line-height:1.55; color:#d7d9dc; }
             #cookieConsent .cc-actions{ display:flex; gap:10px; flex-shrink:0; }
-            #cookieConsent .btn{ padding:9px 18px; font-size:13px; white-space:nowrap; }
+            #cookieConsent .btn{ min-width:0; padding:9px 18px; font-size:13px; white-space:nowrap; }
             #cookieConsent .btn-outline{ border-color:#4a4e57; color:#fff; }
             #cookieConsent .btn-outline:hover{ background:#23262d; }
             @media (max-width:480px){
                 #cookieConsent{ left:10px; right:10px; bottom:10px; padding:16px; flex-direction:column; align-items:stretch; }
                 #cookieConsent .cc-actions{ width:100%; }
-                #cookieConsent .cc-actions .btn{ flex:1; }
+                #cookieConsent .cc-actions .btn{ flex:1 1 0; min-width:0; }
+            }
+            @media (max-width:360px){
+                #cookieConsent{ padding:14px; }
+                #cookieConsent .cc-text{ font-size:12.5px; }
+                #cookieConsent .cc-actions{ gap:8px; }
+                #cookieConsent .btn{ padding:9px 12px; }
             }
         `;
         document.head.appendChild(style);

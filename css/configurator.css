@@ -100,6 +100,9 @@
     transition:border-color var(--t-fast), color var(--t-fast), background var(--t-fast);
 }
 .cfg-option:hover{ border-color:var(--text); }
+/* <small> default browser = 11.67px di parent 14px; dikeplicitkan di atas
+   ambang keterbacaan 12px tanpa kehilangan hierarki visual. */
+.cfg-option small{ font-size:12.5px; line-height:1.5; }
 .cfg-option.active{
     border-color:var(--text);
     background:var(--text);

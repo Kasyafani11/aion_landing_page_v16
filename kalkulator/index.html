@@ -29,11 +29,15 @@
     <link rel="stylesheet" href="../css/responsive.css">
     <script>window.ROOT='../';</script>
     <style>
-        .calc-layout{ display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:start; }
+        .calc-layout{ display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); gap:48px; align-items:start; }
         @media (max-width:860px){
-            .calc-layout{ grid-template-columns:1fr; }
+            /* minmax(0,…) wajib: <select> ber-label panjang punya min-content
+               lebar dan akan memaksa kolom grid melebihi viewport. */
+            .calc-layout{ grid-template-columns:minmax(0,1fr); }
             .calc-result{ position:static; top:auto; }
         }
+        .calc-layout .form{ min-width:0; }
+        .calc-layout .field,.calc-layout input,.calc-layout select{ min-width:0; max-width:100%; }
         .calc-result{ background:var(--bg-alt); border-radius:16px; padding:28px; position:sticky; top:100px; }
         .calc-result h3{ font-size:15px; color:var(--text-muted); font-weight:500; margin-bottom:6px; }
         .calc-result .big{ font-size:34px; font-weight:700; margin-bottom:18px; }

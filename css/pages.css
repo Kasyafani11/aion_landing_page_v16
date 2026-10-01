@@ -380,6 +380,7 @@ input[type=date]{ min-height:46px; }
 }
 .support-search input{
     flex:1;
+    min-width:0; /* default flex min-width:auto memaksa bar melebar di mobile */
     padding:14px 18px;
     border:1px solid var(--line-strong);
     border-radius:10px;
@@ -509,7 +510,7 @@ input[type=date]{ min-height:46px; }
     display:flex; align-items:center; gap:6px;
     background:var(--surface-frost); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
     border:1px solid var(--line); border-radius:20px;
-    padding:6px 12px; font-size:11.5px; color:var(--text-muted);
+    padding:6px 12px; font-size:12px; color:var(--text-muted);
     pointer-events:none;
 }
 .dealer-map-badge b{ color:var(--text); font-weight:600; }
@@ -530,14 +531,14 @@ input[type=date]{ min-height:46px; }
     display:flex; align-items:center; justify-content:center;
     cursor:pointer;
 }
-.dealer-pin span{ transform:rotate(45deg); font-size:11px; color:#fff; font-weight:700; line-height:1; }
+.dealer-pin span{ transform:rotate(45deg); font-size:12px; color:#fff; font-weight:700; line-height:1; }
 .dealer-pin.is-service{ background:var(--text-secondary); }
 .dealer-pin.is-prio{
     width:38px; height:38px;
     background:var(--text); border-width:3px;
     box-shadow:0 0 0 4px rgba(var(--blue-rgb) / .28), var(--shadow-md);
 }
-.dealer-pin.is-prio span{ font-size:14px; }
+.dealer-pin.is-prio span{ font-size:15px; }
 .dealer-pin.is-active{ background:var(--blue-dark); }
 
 /* Priority dealer feature card */
@@ -558,7 +559,7 @@ input[type=date]{ min-height:46px; }
     display:inline-flex; align-items:center; gap:6px;
     background:var(--blue); color:#fff;
     border-radius:20px; padding:4px 11px;
-    font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase;
+    font-size:12px; font-weight:600; letter-spacing:.4px; text-transform:uppercase;
     margin-bottom:12px;
 }
 .dealer-prio h3{ font-size:21px; font-weight:600; }
@@ -584,7 +585,7 @@ input[type=date]{ min-height:46px; }
 .dealer-card .dealer-region{ color:var(--text-faint); font-size:12px; margin-top:2px; }
 .dealer-badges{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
 .dealer-badge{
-    font-size:11px; font-weight:500; letter-spacing:.2px;
+    font-size:12px; font-weight:500; letter-spacing:.2px;
     border:1px solid var(--line-strong); border-radius:20px;
     padding:2px 9px; color:var(--text-muted);
     white-space:nowrap;
@@ -614,7 +615,7 @@ input[type=date]{ min-height:46px; }
 .map-mock{
     position:relative;
     width:100%; height:100%;
-    background:url('../assets/images/city.jpg') center/cover;
+    background:url('../assets/images/aion-exterior/generic/city.jpg') center/cover;
 }
 .map-mock::after{
     content:"";
