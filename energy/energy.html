@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AION Energy | AION</title>
+    <meta name="description" content="AION Energy - Frontend reference implementation.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 20 12 4l9 16H3Z' fill='none' stroke='%233456e6' stroke-width='2'/%3E%3Cpath d='M7.5 14h9' stroke='%233456e6' stroke-width='2'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/mega-menu.css">
+    <link rel="stylesheet" href="../css/hero.css">
+    <link rel="stylesheet" href="../css/sections.css">
+    <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <script>window.ROOT='../';</script>
+</head>
+<body>
+    <div id="header-root"></div>
+
+    <main id="main-content">
+
+        <!-- Hero -->
+        <section class="hero-section hero--dark" style="height:80vh;min-height:520px">
+            <div class="hero-media">
+                <img src="../assets/images/aion-exterior/generic/energy.jpg" alt="AION Energy" fetchpriority="high">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-top">
+                <h1 class="hero-title">AION Energy</h1>
+                <p class="hero-subtitle">Scalable energy solutions for a cleaner future.</p>
+            </div>
+            <div class="hero-bottom">
+                <div class="btn-row">
+                    <a class="btn btn-dark" href="#order">Explore</a>
+                    <a class="btn btn-light" href="#learn">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Value bands -->
+        <div class="section-pad" style="background:var(--bg-alt)">
+            <div class="info-bands" style="margin:0">
+                <div class="info-band reveal"><b>Grid</b><span>Scale solutions</span></div>
+                <div class="info-band reveal" data-delay="1"><b>Clean</b><span>Low-carbon power</span></div>
+                <div class="info-band reveal" data-delay="2"><b>Modular</b><span>Scales to any need</span></div>
+            </div>
+        </div>
+
+        <!-- Reasons -->
+        <section id="learn" class="section-pad">
+            <div class="section-inner">
+                <div class="section-head">
+                    <h2 class="reveal">Why AION Energy?</h2>
+                    <p class="reveal">Energy storage and management that scales with you.</p>
+                </div>
+                <div class="card-grid">
+                    <div class="energy-card reveal">
+                        <img src="../assets/images/aion-exterior/generic/energy.jpg" alt="Grid Scale" loading="lazy">
+                        <div class="energy-card-grad"></div>
+                        <div class="energy-card-body"><h3>Grid Scale</h3><p>Stabilize and balance energy.</p><a href="../support/index.html">Learn</a></div>
+                    </div>
+                    <div class="energy-card reveal" data-delay="1">
+                        <img src="../assets/images/aion-exterior/generic/city.jpg" alt="Clean Energy" loading="lazy">
+                        <div class="energy-card-grad"></div>
+                        <div class="energy-card-body"><h3>Clean Energy</h3><p>Move toward low-carbon power.</p><a href="../charging/index.html">Learn</a></div>
+                    </div>
+                    <div class="energy-card reveal" data-delay="2">
+                        <img src="../assets/images/aion-exterior/generic/road.jpg" alt="Scalable" loading="lazy">
+                        <div class="energy-card-grad"></div>
+                        <div class="energy-card-body"><h3>Scalable</h3><p>Deploy at any scale.</p><a href="../support/index.html">Learn</a></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section id="order" class="section-pad" style="background:var(--bg-alt);text-align:center">
+            <div class="section-inner">
+                <h2 class="reveal" style="font-size:clamp(28px,4vw,40px);font-weight:600">Ready to power the future?</h2>
+                <p class="reveal" style="color:var(--text-muted);margin:12px 0 30px">Explore AION energy solutions.</p>
+                <div class="btn-row reveal" style="justify-content:center">
+                    <button class="btn btn-dark" data-open-contact>Contact Us</button>
+                    <a class="btn btn-outline" href="../find-us/demo.html">Demo</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-root"></div>
+
+    <!-- Contact modal -->
+    <div id="contactModal" class="modal" aria-hidden="true">
+        <div class="modal-backdrop" data-close></div>
+        <div class="modal-panel">
+            <button class="modal-close" data-close aria-label="Close">×</button>
+            <h3 class="modal-title">Request a Consultation</h3>
+            <p class="modal-sub">Leave your details and we'll get back to you.</p>
+            <form class="form" data-contact-form novalidate>
+                <div class="form-grid">
+                    <div class="field"><label>First Name</label><input type="text" required><span class="error"></span></div>
+                    <div class="field"><label>Last Name</label><input type="text" required><span class="error"></span></div>
+                    <div class="field"><label>Email</label><input type="email" required><span class="error"></span></div>
+                    <div class="field"><label>Phone</label><input type="tel" required><span class="error"></span></div>
+                </div>
+                <button class="btn btn-dark btn-block" type="submit">Submit</button>
+            </form>
+            <div data-form-success hidden style="text-align:center;padding:20px 0">
+                <div class="success-check" style="width:56px;height:56px;font-size:26px"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="3" style="vertical-align:-0.1em"><path d="M4 12l6 6L20 6"/></svg></div>
+                <h4 style="font-size:18px">Request received</h4>
+                <p style="color:var(--text-muted);font-size:14px">An AION specialist will be in touch shortly.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/mega-menu.js"></script>
+    <script src="../js/modal.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/animations.js"></script>
+    <script>
+        const contactForm = document.querySelector('[data-contact-form]');
+        const successBox = document.querySelector('[data-form-success]');
+        if(contactForm){
+            contactForm.addEventListener('submit', (e)=>{
+                e.preventDefault();
+                let ok=true;
+                contactForm.querySelectorAll('input[required]').forEach(f=>{
+                    const valid = f.value.trim()!=='' && (!f.type||f.type==='tel'||f.type==='text'||(f.type==='email'&&/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.value)));
+                    f.closest('.field').classList.toggle('invalid', !valid);
+                    if(!valid) ok=false;
+                });
+                if(ok){
+                    contactForm.style.display='none';
+                    successBox.removeAttribute('hidden');
+                }
+            });
+        }
+        document.querySelectorAll('[data-open-contact]').forEach(b=>{
+            b.addEventListener('click', ()=>{ const m=document.getElementById('contactModal'); if(m&&window.NOVA.openModal)window.NOVA.openModal(m); });
+        });
+    </script>
+</body>
+</html>

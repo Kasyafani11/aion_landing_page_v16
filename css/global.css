@@ -1,0 +1,162 @@
+/* ============================================================
+   GLOBAL — design tokens, reset, base typography
+   Filename: css/global.css
+   ============================================================ */
+
+:root{
+    /* Typography (Universal Sans substitute, wide letter-spacing wordmark) */
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+
+    /* Core palette (light, clean surfaces) */
+    --text: #171a20;
+    --text-secondary: #393c41;
+    --text-muted: #5c5e62;
+    --text-faint: #8e8e8e;
+    --blue: #3456e6;
+    --blue-dark: #264cb4;
+
+    /* Feedback / status */
+    --error: #e02424;
+    --error-bg: #fdecec;
+    --success: #1fad50;
+    --success-bg: #e8f7ee;
+    --error-rgb: 224 36 36;
+    --success-rgb: 31 173 80;
+
+    /* Surfaces */
+    --bg: #ffffff;
+    --bg-alt: #f4f4f4;
+    --surface: #ffffff;
+    --surface-overlay: rgba(255,255,255,0.85);
+    --surface-frost: rgba(255,255,255,0.88);
+    --nav-overlay: rgba(0,0,0,0.4);
+    --modal-overlay: rgba(0,0,0,0.5);
+
+    /* Lines */
+    --line: #eeeeee;
+    --line-strong: #d0d1d2;
+
+    /* Sizing */
+    --navbar-height: 56px;
+    --max-width: 1280px;
+    --content-width: 1383px;
+
+    /* Motion */
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --t-fast: 0.2s;
+    --t: 0.33s;
+    --t-slow: 0.5s;
+
+    /* Buttons */
+    --btn-dark: #171a20;
+    --btn-dark-hover: #272b33;
+    --btn-light: rgba(255,255,255,0.7);
+    --btn-light-hover: rgba(255,255,255,0.9);
+
+    /* Text hierarchy over dark media (hero images, auth sidebar) */
+    --on-dark: #fff;
+    --on-dark-muted: rgba(255,255,255,.8);
+    --on-dark-faint: rgba(255,255,255,.7);
+
+    /* Frosted surfaces over imagery */
+    --on-dark-glass: rgba(255,255,255,.9);
+    --on-dark-chip: rgba(255,255,255,.92);
+
+    /* Alpha color channels (for rgba() with variable opacity) */
+    --ink: 23 26 32;    /* --text / --btn-dark */
+    --blue-rgb: 52 86 230; /* --blue */
+    --overlay: 10 10 10; /* dark image overlay base */
+    --black: 0 0 0;
+
+    /* Elevated shadows */
+    --shadow-sm: 0 2px 8px rgba(var(--ink) / .08);
+    --shadow-md: 0 14px 30px rgba(var(--ink) / .18);
+    --shadow-lg: 0 24px 70px rgba(var(--ink) / .08);
+    --shadow-black: 0 24px 70px rgba(var(--black) / .3);
+
+    /* Scrollbar */
+    --scroll: #dcdddf;
+    --scroll-hover: #c5c6c9;
+}
+
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+
+html{
+    scroll-behavior:smooth;
+    -webkit-text-size-adjust:100%;
+}
+
+body{
+    font-family:var(--font);
+    color:var(--text);
+    background:var(--bg);
+    line-height:1.5;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+}
+
+img{ display:block; max-width:100%; height:auto; }
+a{ color:inherit; text-decoration:none; }
+button{ font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; }
+ul,ol{ list-style:none; }
+input,select,textarea{ font-family:inherit; }
+
+::selection{ background:var(--blue); color:#fff; }
+
+/* Focus visibility */
+:focus-visible{
+    outline:2px solid var(--blue);
+    outline-offset:2px;
+}
+
+/* Utility: underline link */
+.u-underline{
+    position:relative;
+    cursor:pointer;
+}
+.u-underline::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:-2px;
+    width:100%; height:1px;
+    background:currentColor;
+    opacity:.5;
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform var(--t) var(--ease);
+}
+.u-underline:hover::after{ transform:scaleX(1); }
+
+/* Reveal on scroll */
+.reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .7s ease, transform .7s var(--ease);
+}
+.reveal.in-view{ opacity:1; transform:none; }
+
+/* Hidden helper */
+[hidden]{ display:none !important; }
+
+/* Scrollbar (subtle) */
+::-webkit-scrollbar{ width:10px; }
+::-webkit-scrollbar-track{ background:var(--bg); }
+::-webkit-scrollbar-thumb{ background:var(--scroll); border-radius:5px; }
+::-webkit-scrollbar-thumb:hover{ background:var(--scroll-hover); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{
+        animation-duration:.001ms !important;
+        animation-iteration-count:1 !important;
+        transition-duration:.001ms !important;
+        scroll-behavior:auto !important;
+    }
+}
+
+/* Section ber-image: selalu tampil (tanpa fade/slide) -> tidak ada image kosong/glitch */
+.hero-section.reveal,.vehicle-banner.reveal,.split-card.reveal,.energy-card.reveal{
+    opacity:1; transform:none; transition:none;
+}
+.energy-card:hover{ transform:none; }

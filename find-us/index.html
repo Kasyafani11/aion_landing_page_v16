@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Us | Locations &amp; Demo Drive | AION</title>
+    <meta name="description" content="Find a store, service center or charge station - Frontend reference implementation.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='%233456e6' stroke-width='2'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/mega-menu.css">
+    <link rel="stylesheet" href="../css/hero.css">
+    <link rel="stylesheet" href="../css/sections.css">
+    <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <script>window.ROOT='../';</script>
+</head>
+<body>
+    <div id="header-root"></div>
+
+    <main class="page">
+        <div class="page-inner">
+            <h1 class="page-title">Find Us</h1>
+            <p class="page-lead">Stores, service centers, fast charging, destination charging, demo drives and collision centers.</p>
+
+            <div class="find-layout" style="margin-top:36px">
+                <!-- Map -->
+                <div class="find-map reveal">
+                    <div class="map-mock">
+                        <span class="map-pin" style="left:25%;top:35%"></span>
+                        <span class="map-pin" style="left:55%;top:50%"></span>
+                        <span class="map-pin" style="left:40%;top:70%"></span>
+                    </div>
+                </div>
+
+                <!-- Search -->
+                <div class="find-filters reveal" data-delay="1">
+                    <input type="search" id="findSearch" placeholder="Search city, zip, or location...">
+                    <select id="findCountry" aria-label="Country">
+                        <option>Indonesia</option>
+                        <option>Malaysia</option>
+                        <option>Singapore</option>
+                        <option>Thailand</option>
+                    </select>
+                    <select id="findCategory" aria-label="Category">
+                        <option value="all">All Categories</option>
+                        <option value="store">Stores</option>
+                        <option value="service">Service Centers</option>
+                        <option value="fast-charging">Fast Charging</option>
+                        <option value="destination">Destination Charging</option>
+                        <option value="demo">Demo Drive</option>
+                        <option value="collision">Collision Centers</option>
+                    </select>
+                    <div id="findResults" class="find-results">
+                        <!-- JS renders -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Demo drive CTA -->
+            <div class="section-pad" style="background:var(--bg-alt);margin-top:60px">
+                <div class="section-inner" style="text-align:center;max-width:600px">
+                    <h2 class="reveal" style="font-size:clamp(26px,4vw,38px);font-weight:600">Experience an AION</h2>
+                    <p class="reveal" style="color:var(--text-muted);margin:12px 0 26px">Book a demo drive at a location near you.</p>
+                    <div class="btn-row reveal" style="justify-content:center">
+                        <a class="btn btn-dark" href="demo.html">Book a Demo Drive</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-root"></div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/mega-menu.js"></script>
+    <script src="../js/modal.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/animations.js"></script>
+    <script>
+        (function(){
+            const LOCATIONS = [
+                { n:'AION Store — Jakarta', c:'Store', loc:'Jakarta, Indonesia', d:'2.1 km' },
+                { n:'AION Service Center — Surabaya', c:'Service Center', loc:'Surabaya, Indonesia', d:'12 km' },
+                { n:'Fast Charging — Central Jakarta', c:'Fast Charging', loc:'Jakarta, Indonesia', d:'3.4 km' },
+                { n:'Destination Charging — Bali', c:'Destination Charging', loc:'Bali, Indonesia', d:'8 km' },
+                { n:'Demo Drive — Bandung', c:'Demo Drive', loc:'Bandung, Indonesia', d:'5 km' },
+                { n:'Collision Center — Jakarta', c:'Collision Center', loc:'Jakarta, Indonesia', d:'6 km' }
+            ];
+            const wrap=document.getElementById('findResults');
+            const search=document.getElementById('findSearch');
+            const cat=document.getElementById('findCategory');
+            const catMap = { store:'Store', service:'Service Center', fast-charging:'Fast Charging', destination:'Destination Charging', demo:'Demo Drive', collision:'Collision Center' };
+            function render(){
+                const q=search.value.trim().toLowerCase();
+                const c=cat.value;
+                const list=LOCATIONS.filter(l=>{
+                    const cOk=c==='all'||l.c===catMap[c];
+                    const qOk=!q||(l.n+' '+l.loc).toLowerCase().includes(q);
+                    return cOk&&qOk;
+                });
+                wrap.innerHTML=list.length? list.map(l=>`
+                    <div class="find-card">
+                        <div><h4>${l.n}</h4><p>${l.loc}</p></div>
+                        <span class="distance">${l.d}</span>
+                    </div>`).join('') : '<div class="inv-empty">No locations found.</div>';
+            }
+            search.addEventListener('input',render);
+            cat.addEventListener('change',render);
+            render();
+        })();
+    </script>
+</body>
+</html>

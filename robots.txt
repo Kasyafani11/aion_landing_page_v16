@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /models/aion-es.html
+Disallow: /models/aion-hyper-ht.html
+Disallow: /models/aion-hyper-ssr.html
+
+Sitemap: https://GANTI-DOMAIN-KAMU.com/sitemap.xml

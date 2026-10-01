@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promo Aktif | AION Indonesia</title>
+    <meta name="description" content="Daftar promo dan penawaran spesial AION Indonesia yang sedang berlangsung.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='%233456e6' stroke-width='2'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/mega-menu.css">
+    <link rel="stylesheet" href="../css/hero.css">
+    <link rel="stylesheet" href="../css/sections.css">
+    <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <script>window.ROOT='../';</script>
+    <style>
+        .promo-card{ display:grid; grid-template-columns:220px 1fr auto; gap:22px; align-items:center;
+            background:var(--bg-alt); border-radius:16px; padding:22px; margin-bottom:18px; }
+        .promo-card img{ width:100%; height:120px; object-fit:cover; border-radius:10px; }
+        .promo-tag{ display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+            background:#171a20; color:#fff; padding:4px 10px; border-radius:99px; margin-bottom:8px; }
+        .promo-card h3{ font-size:19px; margin-bottom:6px; }
+        .promo-card p{ font-size:14px; color:var(--text-muted); margin-bottom:0; }
+        .promo-expiry{ font-size:12.5px; color:var(--text-muted); margin-top:8px; }
+        @media (max-width:720px){ .promo-card{ grid-template-columns:1fr; text-align:left; } .promo-card > .btn{ width:100%; } }
+    </style>
+</head>
+<body>
+    <div id="header-root"></div>
+
+    <main class="page" style="padding-top:calc(var(--navbar-height) + var(--promo-h,0px) + 20px)">
+        <div class="page-inner">
+            <h1 class="page-title">Promo &amp; Penawaran Aktif</h1>
+            <p class="page-lead">Semua promo di bawah berlaku untuk pemesanan unit baru melalui dealer resmi AION Indonesia.</p>
+        </div>
+
+        <div class="page-inner" style="margin-top:32px;max-width:900px">
+
+            <div class="promo-card reveal">
+                <img src="../assets/images/index-aion-y-plus.jpeg" alt="Promo AION Y Plus">
+                <div>
+                    <span class="promo-tag">GIIAS 2026</span>
+                    <h3>Cashback Rp10 Juta — AION Y Plus &amp; AION V</h3>
+                    <p>Berlaku untuk pemesanan unit baru selama periode GIIAS 2026. Cashback langsung dipotong dari harga OTR.</p>
+                    <div class="promo-expiry">Berlaku s.d. 30 September 2026 · Syarat &amp; ketentuan berlaku</div>
+                </div>
+                <a class="btn btn-dark" href="../models/aion-y-plus.html">Lihat Mobil</a>
+            </div>
+
+            <div class="promo-card reveal" data-delay="1">
+                <img src="../assets/images/index-aion-ut.jpeg" alt="Promo AION UT">
+                <div>
+                    <span class="promo-tag">Bunga Ringan</span>
+                    <h3>Cicilan 0% untuk Tenor 12 Bulan — AION UT</h3>
+                    <p>Kerja sama dengan leasing partner terpilih. Kuota terbatas per bulan, cek dengan sales dealer terdekat.</p>
+                    <div class="promo-expiry">Berlaku s.d. 31 Oktober 2026 · Syarat &amp; ketentuan berlaku</div>
+                </div>
+                <a class="btn btn-dark" href="../models/aion-ut.html">Lihat Mobil</a>
+            </div>
+
+            <div class="promo-card reveal" data-delay="2">
+                <img src="../assets/images/aion-hypetech.jpeg" alt="Promo HYPTEC HT">
+                <div>
+                    <span class="promo-tag">Trade-In</span>
+                    <h3>Bonus Tukar Tambah hingga Rp15 Juta — HYPTEC HT</h3>
+                    <p>Tukarkan mobil lama kamu (merek apa saja) dan dapatkan tambahan bonus di luar harga pasaran mobil bekas kamu.</p>
+                    <div class="promo-expiry">Berlaku s.d. 30 November 2026 · Syarat &amp; ketentuan berlaku</div>
+                </div>
+                <a class="btn btn-dark" href="../models/hyptec-ht.html">Lihat Mobil</a>
+            </div>
+
+            <p style="font-size:12.5px;color:var(--text-muted);margin-top:24px">
+                *Promo di halaman ini adalah contoh/placeholder untuk keperluan demo. Ganti dengan promo aktual dari dealer sebelum situs ini live.
+            </p>
+        </div>
+    </main>
+
+    <div id="footer-root"></div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/mega-menu.js"></script>
+    <script src="../js/modal.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/animations.js"></script>
+</body>
+</html>

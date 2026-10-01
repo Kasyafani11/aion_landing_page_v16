@@ -1,0 +1,34 @@
+/* ============================================================
+   RESPONSIVE — cross-module responsive coordination
+   ============================================================ */
+
+/* Large desktop */
+@media (min-width:1200px){ :root{ --max-width:1200px; } }
+
+/* Desktop / tablet */
+@media (max-width:1024px){
+    :root{ --max-width:96vw; }
+}
+
+/* Mobile */
+@media (max-width:640px){
+    .section-pad{ padding:56px 16px; }
+    .vehicle-banner{ min-height:560px; }
+    .hero-nav{ gap:18px; font-size:14px; flex-wrap:wrap; justify-content:center; }
+    .hero-stats{ gap:28px; margin-top:26px; }
+    .hero-stat b{ font-size:clamp(24px,9vw,32px); }
+    .footer-grid{ grid-template-columns:repeat(2,1fr); gap:24px; }
+    .numbers-row{ gap:32px; }
+    .inv-filters select{ min-width:120px; }
+
+    /* Cegah auto-zoom Safari iOS saat fokus ke input (butuh font-size >=16px) */
+    .field input, .field select, .field textarea,
+    #calcModel, #calcTenor, #calcRate, #calcOtr{
+        font-size:16px !important;
+    }
+}
+
+@media (max-width:480px){
+    .footer-grid{ grid-template-columns:1fr; }
+    .brand{ letter-spacing:2px; font-size:16px; }
+}

@@ -1,0 +1,161 @@
+/* ============================================================
+   CONFIGURATOR — vehicle build & price page
+   ============================================================ */
+
+.cfg-page{ padding-top:var(--navbar-height); }
+.cfg-layout{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    height:calc(100vh - var(--navbar-height));
+    min-height:640px;
+}
+
+/* Preview side */
+.cfg-preview{
+    position:relative;
+    background:var(--bg-alt);
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.cfg-preview .stage{
+    width:100%; height:100%;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.cfg-car-wrap{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:min(760px,90%);
+    z-index:1;
+}
+.cfg-car{
+    position:relative;
+    width:100%;
+    filter:drop-shadow(0 30px 40px rgba(var(--ink) / .18));
+    transition:opacity .3s ease, transform .4s var(--ease);
+}
+.cfg-car.fade-out{ opacity:0; transform:scale(1.02); }
+.cfg-tint{
+    position:absolute;
+    inset:0;
+    mix-blend-mode:color;
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .3s ease;
+}
+.cfg-tint.on{ opacity:.75; }
+.cfg-floor{
+    position:absolute;
+    bottom:8%;
+    left:50%;
+    transform:translateX(-50%);
+    width:70%; height:120px;
+    background:radial-gradient(ellipse at center, rgba(0,0,0,.12), transparent 70%);
+    filter:blur(20px);
+}
+.cfg-live-price{
+    position:absolute;
+    bottom:8%;
+    left:8%;
+    background:var(--on-dark-glass);
+    backdrop-filter:blur(10px);
+    padding:14px 22px;
+    border-radius:12px;
+    box-shadow:0 8px 30px rgba(var(--ink) / .15);
+}
+.cfg-live-price small{ display:block; color:var(--text-muted); font-size:12px; }
+.cfg-live-price b{ font-size:24px; font-weight:600; }
+
+/* Controls side */
+.cfg-controls{
+    background:var(--surface);
+    padding:24px 28px;
+    overflow-y:auto;
+    border-left:1px solid var(--line);
+}
+.cfg-summary{ margin-bottom:18px; }
+.cfg-summary h1{ font-size:28px; font-weight:600; }
+.cfg-group{ margin-bottom:24px; }
+.cfg-group-title{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--text-muted);
+    font-weight:600;
+    margin-bottom:12px;
+}
+.cfg-options{ display:flex; flex-wrap:wrap; gap:8px; }
+.cfg-option{
+    padding:11px 18px;
+    border:1.5px solid var(--line-strong);
+    border-radius:8px;
+    font-size:14px;
+    font-weight:500;
+    transition:border-color var(--t-fast), color var(--t-fast), background var(--t-fast);
+}
+.cfg-option:hover{ border-color:var(--text); }
+.cfg-option.active{
+    border-color:var(--text);
+    background:var(--text);
+    color:#fff;
+}
+.cfg-swatches{ display:flex; gap:12px; flex-wrap:wrap; }
+.cfg-swatch{
+    width:40px; height:40px;
+    border-radius:50%;
+    border:2px solid transparent;
+    box-shadow:inset 0 0 0 1px rgba(var(--ink) / .1);
+    transition:transform var(--t-fast), box-shadow var(--t-fast);
+}
+.cfg-swatch:hover{ transform:scale(1.1); }
+.cfg-swatch--split{
+    background:linear-gradient(to bottom,
+        var(--sw-top) 0px,
+        var(--sw-top) calc(50% + 0.5px),
+        var(--sw-bottom) calc(50% + 0.5px),
+        var(--sw-bottom) 100%) !important;
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.9);
+}
+.cfg-swatch.active{
+    box-shadow:0 0 0 2px #fff, 0 0 0 4px var(--text);
+}
+.cfg-cta{ margin-top:26px; }
+.cfg-note{ font-size:12px; color:var(--text-muted); margin-top:14px; text-align:center; line-height:1.5; }
+
+/* Sticky order bar */
+.cfg-order-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:14px 0;
+    border-top:1px solid var(--line);
+    margin-top:20px;
+}
+.cfg-order-bar .btn{ min-width:0; padding:12px 26px; }
+
+@media (max-width:640px){
+    .cfg-order-bar{
+        flex-direction:column;
+        align-items:stretch;
+        gap:14px;
+    }
+    .cfg-order-bar > div:first-child{ text-align:center; }
+    .cfg-order-bar > div[style*="display:flex"]{
+        flex-direction:column;
+        width:100%;
+    }
+    .cfg-order-bar .btn{ width:100%; text-align:center; }
+}
+
+@media (max-width:900px){
+    .cfg-layout{ grid-template-columns:1fr; height:auto; }
+    .cfg-preview{ height:44vh; min-height:300px; }
+    .cfg-live-price{ left:auto; right:14px; bottom:14px; left:14px; text-align:center; }
+}

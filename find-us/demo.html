@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Demo Drive | AION</title>
+    <meta name="description" content="Jadwalkan test drive AION UT, Y Plus, V, atau HYPTEC HT di dealer terdekat.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Booking Test Drive | AION Indonesia">
+    <meta property="og:description" content="Jadwalkan test drive AION UT, Y Plus, V, atau HYPTEC HT di dealer terdekat.">
+    <meta property="og:image" content="https://GANTI-DOMAIN-KAMU.com/assets/images/index-aion-V.jpeg">
+    <meta property="og:url" content="https://GANTI-DOMAIN-KAMU.com/find-us/demo.html">
+    <meta property="og:locale" content="id_ID">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Booking Test Drive | AION Indonesia">
+    <meta name="twitter:description" content="Jadwalkan test drive AION UT, Y Plus, V, atau HYPTEC HT di dealer terdekat.">
+    <meta name="twitter:image" content="https://GANTI-DOMAIN-KAMU.com/assets/images/index-aion-V.jpeg">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='%233456e6' stroke-width='2'/%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/mega-menu.css">
+    <link rel="stylesheet" href="../css/hero.css">
+    <link rel="stylesheet" href="../css/sections.css">
+    <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <script>window.ROOT='../';</script>
+</head>
+<body>
+    <div id="header-root"></div>
+
+    <main class="page">
+        <div class="page-inner" style="max-width:680px">
+            <h1 class="page-title">Book a Demo Drive</h1>
+            <p class="page-lead">Fill in the details below and we'll confirm your demo drive.</p>
+
+            <div id="demoFormWrap" style="margin-top:32px">
+                <form class="form" id="demoForm" novalidate>
+                    <div class="form-grid">
+                        <div class="field"><label for="demoVehicle">Vehicle</label>
+                            <select id="demoVehicle" required><option value="">Select vehicle</option><option>HYPTEC HT</option><option>AION Y Plus</option><option>AION V</option><option>AION UT</option></select>
+                            <span class="error"></span></div>
+                        <div class="field"><label for="demoCountry">Country</label>
+                            <select id="demoCountry"><option>Indonesia</option><option>Malaysia</option><option>Singapore</option></select></div>
+                        <div class="field"><label for="demoLocation">Preferred Location</label><input id="demoLocation" type="text" required placeholder="City"><span class="error"></span></div>
+                        <div class="field"><label for="demoDate">Preferred Date</label><input id="demoDate" type="date" required><span class="error"></span></div>
+                    </div>
+                    <div class="field"><label for="demoFirst">First Name</label><input id="demoFirst" type="text" required><span class="error"></span></div>
+                    <div class="field"><label for="demoLast">Last Name</label><input id="demoLast" type="text" required><span class="error"></span></div>
+                    <div class="form-grid">
+                        <div class="field"><label for="demoEmail">Email</label><input id="demoEmail" type="email" required><span class="error"></span></div>
+                        <div class="field"><label for="demoPhone">Phone</label><input id="demoPhone" type="tel" required><span class="error"></span></div>
+                        <div class="field"><label for="demoTime">Preferred Time</label>
+                            <select id="demoTime"><option>Morning</option><option>Afternoon</option><option>Evening</option></select></div>
+                    </div>
+                    <button class="btn btn-dark btn-block" type="submit" style="margin-top:10px">Request Demo Drive</button>
+                </form>
+            </div>
+
+            <div id="demoSuccess" class="success" hidden>
+                <div class="success-check"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="3" style="vertical-align:-0.1em"><path d="M4 12l6 6L20 6"/></svg></div>
+                <h2>Permintaan Terkirim</h2>
+                <p>Chat WhatsApp ke tim sales sudah dibuka di tab baru. Kalau tidak terbuka otomatis, cek pop-up blocker browser kamu.</p>
+                <a class="btn btn-outline" href="../index.html" style="margin-top:20px">Back to Home</a>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-root"></div>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/mega-menu.js"></script>
+    <script src="../js/modal.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/animations.js"></script>
+    <script>
+        (function(){
+            const form=document.getElementById('demoForm');
+            const success=document.getElementById('demoSuccess');
+            const wrap=document.getElementById('demoFormWrap');
+
+            const qs = new URLSearchParams(window.location.search);
+            const preVehicle = qs.get('vehicle');
+            if(preVehicle){
+                const sel = document.getElementById('demoVehicle');
+                [...sel.options].forEach(o=>{ if(o.value===preVehicle) sel.value=preVehicle; });
+            }
+            function check(field){
+                const err=field.closest('.field').querySelector('.error');
+                let v=true;
+                const val=field.value.trim();
+                if(field.required && !val) v=false;
+                if(field.type==='email' && val && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val)) v=false;
+                if(field.type==='tel' && val && val.replace(/\D/g,'').length<7) v=false;
+                if(field.type==='date' && val){ const d=new Date(val); v=v && d.getTime()>Date.now(); }
+                field.closest('.field').classList.toggle('invalid',!v);
+                if(err) err.textContent = v?'':(field.type==='email'?'Enter a valid email':(field.type==='date'?'Choose a future date':'This field is required'));
+                return v;
+            }
+            form.querySelectorAll('input,select').forEach(f=>{
+                f.addEventListener('blur',()=>check(f));
+                f.addEventListener('input',()=>{ if(f.closest('.field').classList.contains('invalid')) check(f); });
+            });
+            form.addEventListener('submit',(e)=>{
+                e.preventDefault();
+                let ok=true;
+                form.querySelectorAll('input[required],select[required]').forEach(f=>{ if(!check(f)) ok=false; });
+                if(!ok) return;
+                const btn=form.querySelector('button[type=submit]');
+                btn.disabled=true; btn.textContent='Mengirim...';
+
+                const vehicle  = document.getElementById('demoVehicle').value;
+                const country  = document.getElementById('demoCountry').value;
+                const location = document.getElementById('demoLocation').value.trim();
+                const date     = document.getElementById('demoDate').value;
+                const first    = document.getElementById('demoFirst').value.trim();
+                const last     = document.getElementById('demoLast').value.trim();
+                const email    = document.getElementById('demoEmail').value.trim();
+                const phone    = document.getElementById('demoPhone').value.trim();
+                const time     = document.getElementById('demoTime').value;
+
+                const msg = `Halo AION, saya ingin booking test drive.\n\nNama: ${first} ${last}\nEmail: ${email}\nNo. HP: ${phone}\n\nMobil: ${vehicle}\nLokasi: ${location}, ${country}\nTanggal: ${date}\nWaktu: ${time}\n\nMohon dikonfirmasi jadwalnya.`;
+
+                if(window.NOVA && window.NOVA.track) window.NOVA.track('test_drive_booking', { vehicle, location });
+                if(window.NOVA && window.NOVA.openWhatsApp) window.NOVA.openWhatsApp(msg, 'whatsapp_click_testdrive');
+
+                setTimeout(()=>{ form.hidden=true; wrap.style.display='none'; success.removeAttribute('hidden'); },400);
+            });
+        })();
+    </script>
+</body>
+</html>

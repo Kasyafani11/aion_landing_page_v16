@@ -1,0 +1,205 @@
+/* ============================================================
+   HERO & VEHICLE SECTIONS
+   Full-viewport sections with background media, heading,
+   subtitle, CTAs, bottom info, animated content.
+   ============================================================ */
+
+.hero-section{
+    position:relative;
+    height:100vh;
+    min-height:600px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:center;
+    overflow:hidden;
+    text-align:center;
+    color:var(--text);
+}
+.hero-media{ position:absolute; inset:0; overflow:hidden; z-index:-2; }
+.hero-media img,.hero-media video{
+    position:absolute;
+    inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    animation:none;
+    transform:none;
+}
+.hero-overlay{
+    position:absolute; inset:0; z-index:-1;
+    background:linear-gradient(180deg, rgba(var(--overlay) / .4) 0%, rgba(var(--overlay) / .12) 45%, rgba(var(--overlay) / .55) 100%);
+}
+
+/* Dark hero variant: white text over dark/deep media.
+   The dark fallback lives on .hero-media so it shows only when the
+   hero image is missing/fails, WITHOUT covering the image itself
+   (the image sits inside .hero-media, above its background). */
+.hero--dark{ color:#fff; }
+.hero--dark .hero-media{ background:var(--text); }
+.hero--dark .hero-title,
+.hero--dark .hero-subtitle{ color:#fff; }
+.hero--dark .hero-subtitle a{ color:inherit; opacity:1; }
+.hero--dark .hero-note,
+.hero--dark .hero-stat span{ color:var(--on-dark-muted); }
+.hero--dark .hero-nav{ color:#fff; }
+.hero--dark .hero-overlay,
+.hero-overlay--dark{
+    background:linear-gradient(180deg, rgba(var(--overlay) / .5) 0%, rgba(var(--overlay) / .18) 45%, rgba(var(--overlay) / .62) 100%);
+}
+.hero--dark .btn-light{ color:var(--text); }
+
+/* Hero top content */
+.hero-top{
+    padding-top:calc(var(--navbar-height) + 10vh);
+    z-index:2;
+}
+.hero-title{
+    font-size:clamp(38px,7vw,64px);
+    font-weight:600;
+    letter-spacing:.5px;
+    line-height:1.1;
+}
+.hero-subtitle{
+    margin-top:10px;
+    font-size:clamp(15px,2vw,18px);
+    font-weight:400;
+}
+.hero-note{
+    margin-top:8px;
+    font-size:14px;
+    color:var(--text-muted);
+}
+
+/* Hero stats row */
+.hero-stats{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:clamp(20px,6vw,60px);
+    margin-top:36px;
+}
+.hero-stat{ display:flex; flex-direction:column; align-items:center; }
+.hero-stat b{
+    font-size:clamp(26px,4vw,40px);
+    font-weight:600;
+    line-height:1;
+}
+.hero-stat span{ font-size:13px; color:var(--text-muted); margin-top:5px; }
+
+/* Hero bottom (buttons + nav) */
+.hero-bottom{
+    width:100%;
+    padding-bottom:36px;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:26px;
+}
+.btn-row{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+.hero-nav{
+    display:flex;
+    gap:28px;
+    font-size:15px;
+    font-weight:500;
+}
+.hero-nav a:hover{ text-decoration:underline; }
+
+/* ============================================================
+   VEHICLE ANIMATIONS
+   Custom-property-driven so every *car* hero animates in two
+   layers: a slow cinematic zoom on the photo + a staggered
+   entrance for the copy. Respects prefers-reduced-motion.
+   ============================================================ */
+:root{
+    --pan-x: -3%;
+    --pan-y: -1.5%;
+    --pan-dur: 24s;
+}
+@keyframes heroUp{
+    from{ opacity:0; transform:translateY(20px); }
+    to{ opacity:1; transform:none; }
+}
+.hero-section .hero-top > *,
+.hero-section .hero-bottom > *,
+.vehicle-banner .hero-top > *,
+.vehicle-banner .hero-bottom > *{
+    animation:heroUp .65s var(--ease) both;
+}
+.hero-section .hero-top > *:nth-child(1),
+.vehicle-banner .hero-top > *:nth-child(1){ animation-delay:.1s; }
+.hero-section .hero-top > *:nth-child(2),
+.vehicle-banner .hero-top > *:nth-child(2){ animation-delay:.2s; }
+.hero-section .hero-top > *:nth-child(3),
+.vehicle-banner .hero-top > *:nth-child(3){ animation-delay:.3s; }
+.hero-section .hero-bottom > *:nth-child(1),
+.vehicle-banner .hero-bottom > *:nth-child(1){ animation-delay:.45s; }
+.hero-section .hero-bottom > *:nth-child(2),
+.vehicle-banner .hero-bottom > *:nth-child(2){ animation-delay:.58s; }
+
+@media (prefers-reduced-motion: reduce){
+    .hero-media img,.hero-media video{
+        animation:none; will-change:auto;
+    }
+    .hero-section .hero-top > *,
+    .hero-section .hero-bottom > *,
+    .vehicle-banner .hero-top > *,
+    .vehicle-banner .hero-bottom > *{ animation:none; }
+}
+
+/* ============================================================
+   GENERIC SECTIONS (energy, charging cards, etc.)
+   ============================================================ */
+.section-pad{ padding:80px 20px; }
+.section-inner{ max-width:var(--content-width); margin:0 auto; }
+.section-head{ text-align:center; max-width:760px; margin:0 auto 60px; }
+.section-eyebrow{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    color:var(--text-muted);
+    margin-bottom:12px;
+}
+.section-head h2{ font-size:clamp(30px,5vw,48px); font-weight:600; line-height:1.15; }
+.section-head p{ color:var(--text-muted); margin-top:14px; font-size:17px; }
+
+/* Buttons */
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    min-width:252px;
+    padding:12px 26px;
+    border-radius:4px;
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:.3px;
+    transition:background var(--t-fast) var(--ease), color var(--t-fast), opacity var(--t-fast);
+    cursor:pointer;
+    text-align:center;
+    line-height:1.2;
+}
+.btn-row .btn{ width:auto; }
+.btn-dark{ background:var(--btn-dark); color:#fff; }
+.btn-dark:hover{ background:var(--btn-dark-hover); }
+.btn-light{ background:var(--btn-light); color:var(--text); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+.btn-light:hover{ background:var(--btn-light-hover); }
+.btn-blue{ background:var(--blue); color:#fff; }
+.btn-blue:hover{ background:var(--blue-dark); }
+.btn-outline{ background:transparent; border:1px solid var(--line-strong); color:var(--text); }
+.btn-outline:hover{ background:var(--bg-alt); }
+.btn-lg{ min-width:280px; padding:14px 30px; font-size:15px; }
+
+/* Accessibility focus */
+.btn:focus-visible{ outline:2px solid var(--blue); outline-offset:2px; }
+
+@media (max-width:640px){
+    .btn-row{ flex-direction:column; width:100%; max-width:340px; }
+    .btn-row .btn{ width:100%; }
+}

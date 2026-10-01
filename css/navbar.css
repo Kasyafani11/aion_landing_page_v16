@@ -1,0 +1,210 @@
+/* ============================================================
+   NAVBAR — fixed top bar
+   Translucent/dark over image heroes, white opaque on scroll.
+   Light sections switch text to dark via .on-light.
+   ============================================================ */
+
+.navbar{
+    position:fixed;
+    top:var(--promo-h, 0px);
+    left:0;
+    width:100%;
+    height:var(--navbar-height);
+    z-index:1000;
+    transition:background var(--t) var(--ease), box-shadow var(--t) var(--ease), backdrop-filter var(--t) var(--ease), top .2s ease;
+    color:#fff;
+}
+
+.navbar.scrolled,
+.navbar.has-menu{
+    background:var(--surface);
+    color:var(--text);
+    box-shadow:0 1px 0 var(--line);
+}
+
+/* Light pages (no dark hero): frosted translucent bar so page content
+   (including full-bleed imagery like the account aside) shows through. */
+.navbar.nav-frost{
+    background:var(--surface-frost);
+    -webkit-backdrop-filter:blur(14px);
+    backdrop-filter:blur(14px);
+    color:var(--text);
+    box-shadow:0 1px 0 var(--line);
+}
+
+/* Full-width mega menu mode: navbar sits above the white panel */
+.navbar.menu-active{
+    background:var(--surface);
+    color:var(--text);
+}
+
+.nav-inner{
+    max-width:var(--max-width);
+    margin:0 auto;
+    height:100%;
+    padding:0 20px;
+    display:flex;
+    align-items:stretch;
+    justify-content:space-between;
+    position:relative;
+}
+
+/* Brand / wordmark (placeholder) */
+.brand{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    letter-spacing:3px;
+    font-weight:600;
+    font-size:18px;
+    padding:0 8px;
+    white-space:nowrap;
+}
+.brand svg{ width:22px; height:22px; }
+
+/* Center nav (desktop only) */
+.nav-center{
+    display:flex;
+    align-items:stretch;
+    height:100%;
+}
+.nav-group{
+    position:relative;
+    display:flex;
+    align-items:center;
+    height:100%;
+}
+.nav-group > .nav-link{
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:14px;
+    transition:background var(--t-fast) var(--ease);
+    white-space:nowrap;
+}
+.nav-group:hover > .nav-link,
+.nav-group.open > .nav-link{
+    background:rgba(128,128,128,0.3);
+}
+
+/* Nav link general */
+.nav-link{
+    font-weight:500;
+    font-size:14px;
+    padding:6px 14px;
+    border-radius:20px;
+    transition:background var(--t-fast) var(--ease);
+}
+
+/* Right nav */
+.nav-right{
+    display:flex;
+    align-items:center;
+    gap:2px;
+}
+.nav-right .nav-link{ white-space:nowrap; }
+
+/* Account avatar */
+.nav-account{
+    height:34px;
+    padding:0 14px;
+    border-radius:99px;
+    border:1.5px solid currentColor;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:transparent;
+    font-size:13px;
+    font-weight:500;
+    white-space:nowrap;
+    transition:background var(--t-fast) var(--ease);
+}
+.nav-account:hover{ background:rgba(128,128,128,0.3); }
+.nav-account svg{ width:15px; height:15px; flex-shrink:0; }
+
+@media (max-width:480px){
+    .nav-account{ padding:0; width:34px; justify-content:center; }
+    .nav-account-label{ display:none; }
+}
+
+/* Hamburger (mobile) */
+.menu-toggle{ display:none; align-items:center; justify-content:center; }
+.menu-toggle svg{ width:20px; height:20px; }
+
+/* ============================================================
+   MOBILE FULL-SCREEN MENU
+   ============================================================ */
+.mobile-menu{
+    position:fixed;
+    top:0; right:0;
+    width:100%;
+    max-width:100%;
+    height:100vh;
+    height:100dvh;
+    background:var(--bg);
+    z-index:1500;
+    transform:translateX(100%);
+    transition:transform var(--t-slow) var(--ease);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    color:var(--text);
+}
+.mobile-menu.open{ transform:none; }
+.mobile-menu-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    height:var(--navbar-height);
+    border-bottom:1px solid var(--line);
+}
+.mobile-menu-close{
+    width:40px; height:40px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px;
+    color:var(--text-muted);
+}
+.mobile-menu-close:hover{ color:var(--text); }
+.mobile-nav{ flex:1; overflow-y:auto; padding:8px 0 24px; }
+.mobile-item{ border-bottom:1px solid var(--line); }
+.mobile-item-btn{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 20px;
+    font-size:14px;
+    font-weight:500;
+    color:var(--text);
+    text-align:left;
+}
+.mobile-item-btn .caret{ transition:transform var(--t) var(--ease); font-size:12px; }
+.mobile-item.open .caret{ transform:rotate(90deg); }
+.mobile-sub{ max-height:0; overflow:hidden; transition:max-height var(--t-slow) var(--ease); }
+.mobile-sub a{
+    display:block;
+    padding:12px 36px;
+    font-size:14px;
+    color:var(--text-muted);
+}
+.mobile-sub a:hover{ color:var(--text); }
+.mobile-menu-lang{
+    padding:18px 20px;
+    border-top:1px solid var(--line);
+    color:var(--text-muted);
+    font-size:14px;
+}
+
+/* Body scroll lock handled in JS via .lock class */
+body.lock{ overflow:hidden; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1024px){
+    .nav-center{ display:none; }
+    .nav-right .nav-link:not(.menu-toggle):not(.nav-account){
+        display:none;
+    }
+    .menu-toggle{ display:inline-flex; }
+}

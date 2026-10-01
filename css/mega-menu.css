@@ -1,0 +1,125 @@
+/* ============================================================
+   MEGA MENU — full-width light panel under the navbar.
+   Vehicle menu: 3-column vehicle grid + right quick-links sidebar.
+   Other menus use their own narrower column layouts.
+   ============================================================ */
+
+.mega-menu{
+    position:fixed;
+    top:calc(var(--promo-h, 0px) + var(--navbar-height));
+    left:0;
+    width:100%;
+    background:var(--surface);
+    color:var(--text);
+    z-index:995;
+    transform:translateY(-8px);
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transition:opacity var(--t) var(--ease), transform var(--t) var(--ease), visibility var(--t);
+    box-shadow:0 12px 40px rgba(var(--ink) / 0.08);
+}
+
+.mega-menu.open,
+.nav-group.open .mega-menu{
+    transform:none;
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+}
+
+.mega-inner{
+    max-width:var(--max-width);
+    margin:0 auto;
+    padding:24px 20px 40px;
+    position:relative;
+}
+
+/* --- VEHICLES layout: grid + sidebar --- */
+.mm-grid-side{
+    display:grid;
+    grid-template-columns:1fr;
+}
+.mm-vehicles{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:26px;
+}
+.mm-vehicles.sidebar{
+    grid-template-columns:repeat(3,1fr) auto;
+    gap:20px;
+}
+
+.mm-car{
+    text-align:center;
+    cursor:pointer;
+    padding:8px;
+    border-radius:12px;
+    transition:background var(--t-fast) var(--ease);
+}
+.mm-car:hover{ background:var(--bg-alt); }
+.mm-car-img{
+    border-radius:10px;
+    overflow:hidden;
+    aspect-ratio:16/10;
+    margin-bottom:10px;
+}
+.mm-car-img img{ width:100%; height:100%; object-fit:cover; transition:transform .7s var(--ease); }
+.mm-car:hover .mm-car-img img{ transform:scale(1.04); }
+.mm-car-name{ font-size:17px; font-weight:500; }
+.mm-car-links{ display:flex; justify-content:center; gap:16px; margin-top:4px; font-size:14px; color:var(--text-muted); }
+.mm-car-links a:hover{ text-decoration:underline; }
+
+/* Right quick-links sidebar */
+.mm-sidebar{
+    border-left:1px solid var(--line);
+    padding-left:24px;
+    display:flex;
+    flex-direction:column;
+}
+.mm-sidebar a{
+    padding:9px 4px;
+    font-size:14px;
+    color:var(--text);
+    font-weight:500;
+    transition:color var(--t-fast);
+}
+.mm-sidebar a:hover{ text-decoration:underline; }
+
+/* --- Simple list layout for Energy / Charging / Discover / Shop --- */
+.mm-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:8px 30px;
+}
+.mm-list a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 12px;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:500;
+    transition:background var(--t-fast);
+}
+.mm-list a:hover{ background:var(--bg-alt); }
+.mm-list a img{ width:46px; height:34px; object-fit:cover; border-radius:6px; }
+.mm-list-col-title{
+    padding:4px 12px 8px;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--text-faint);
+    font-weight:600;
+}
+
+/* Second column in side-by-side menus */
+.mm-cols{ display:grid; grid-template-columns:1.4fr 1fr; gap:40px; }
+.mm-cols > div:not(:first-child){ border-left:1px solid var(--line); padding-left:30px; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1024px){
+    .mega-menu{ display:none; } /* mobile uses full-screen menu instead */
+}
