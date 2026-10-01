@@ -88,6 +88,8 @@
                 const sel = document.getElementById('demoVehicle');
                 [...sel.options].forEach(o=>{ if(o.value===preVehicle) sel.value=preVehicle; });
             }
+            const preLocation = qs.get('location');
+            if(preLocation) document.getElementById('demoLocation').value = preLocation;
             function check(field){
                 const err=field.closest('.field').querySelector('.error');
                 let v=true;

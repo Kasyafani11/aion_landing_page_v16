@@ -1,20 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Us | Locations &amp; Demo Drive | AION</title>
-    <meta name="description" content="Find a store, service center or charge station - Frontend reference implementation.">
+    <title>Dealer &amp; Lokasi AION di Indonesia | GAC AION Tunjungan Surabaya</title>
+    <meta name="description" content="Cari dealer resmi GAC AION di Indonesia. 58 titik dealer 3S & service point di 22 provinsi, lengkap dengan alamat, peta lokasi, dan nomor WhatsApp. Prioritas: GAC AION Surabaya Tunjungan, Jl. Tunjungan No.50.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Dealer &amp; Lokasi AION di Indonesia | GAC AION Tunjungan Surabaya">
+    <meta property="og:description" content="58 dealer resmi GAC AION di Indonesia dengan alamat lengkap dan peta interaktif. Prioritas: GAC AION Surabaya Tunjungan, Jl. Tunjungan No.50.">
+    <meta property="og:image" content="https://GANTI-DOMAIN-KAMU.com/assets/images/index-aion-V.jpeg">
+    <meta property="og:url" content="https://GANTI-DOMAIN-KAMU.com/find-us/index.html">
+    <meta property="og:locale" content="id_ID">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dealer &amp; Lokasi AION di Indonesia | GAC AION Tunjungan Surabaya">
+    <meta name="twitter:description" content="58 dealer resmi GAC AION di Indonesia dengan alamat lengkap dan peta interaktif.">
+    <meta name="twitter:image" content="https://GANTI-DOMAIN-KAMU.com/assets/images/index-aion-V.jpeg">
+    <link rel="canonical" href="https://GANTI-DOMAIN-KAMU.com/find-us/index.html">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='%233456e6' stroke-width='2'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="preconnect" href="https://tile.openstreetmap.org">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/mega-menu.css">
     <link rel="stylesheet" href="../css/hero.css">
     <link rel="stylesheet" href="../css/sections.css">
     <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
     <link rel="stylesheet" href="../css/pages.css">
     <link rel="stylesheet" href="../css/responsive.css">
     <script>window.ROOT='../';</script>
@@ -24,48 +38,57 @@
 
     <main class="page">
         <div class="page-inner">
-            <h1 class="page-title">Find Us</h1>
-            <p class="page-lead">Stores, service centers, fast charging, destination charging, demo drives and collision centers.</p>
+            <h1 class="page-title">Dealer &amp; Lokasi AION</h1>
+            <p class="page-lead">Temukan dealer resmi GAC AION terdekat di seluruh Indonesia. Semua titik di bawah ini berasal dari data resmi GAC Indonesia.</p>
+
+            <div id="dealerFallback" class="dealer-map-note" hidden>
+                <b>Peta belum bisa dimuat</b>
+                Klik nama dealer di daftar untuk membuka lokasi di Google Maps.
+            </div>
 
             <div class="find-layout" style="margin-top:36px">
                 <!-- Map -->
-                <div class="find-map reveal">
-                    <div class="map-mock">
-                        <span class="map-pin" style="left:25%;top:35%"></span>
-                        <span class="map-pin" style="left:55%;top:50%"></span>
-                        <span class="map-pin" style="left:40%;top:70%"></span>
+                <div class="dealer-map-wrap reveal">
+                    <div id="dealerMap" role="application" aria-label="Peta lokasi dealer GAC AION di Indonesia"></div>
+                    <div class="dealer-map-badge">
+                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                        <span>Peta OpenStreetMap</span>
                     </div>
                 </div>
 
                 <!-- Search -->
                 <div class="find-filters reveal" data-delay="1">
-                    <input type="search" id="findSearch" placeholder="Search city, zip, or location...">
-                    <select id="findCountry" aria-label="Country">
-                        <option>Indonesia</option>
-                        <option>Malaysia</option>
-                        <option>Singapore</option>
-                        <option>Thailand</option>
-                    </select>
-                    <select id="findCategory" aria-label="Category">
-                        <option value="all">All Categories</option>
-                        <option value="store">Stores</option>
-                        <option value="service">Service Centers</option>
-                        <option value="fast-charging">Fast Charging</option>
-                        <option value="destination">Destination Charging</option>
-                        <option value="demo">Demo Drive</option>
-                        <option value="collision">Collision Centers</option>
-                    </select>
-                    <div id="findResults" class="find-results">
+                    <input type="search" id="findSearch" placeholder="Cari kota, provinsi, atau nama dealer..." autocomplete="off">
+                    <div class="find-filter-row">
+                        <select id="findProvince" aria-label="Provinsi">
+                            <option value="all">Semua Provinsi</option>
+                        </select>
+                        <select id="findCategory" aria-label="Kategori">
+                            <option value="all">Semua Lokasi</option>
+                            <option value="dealer">Dealer 3S / Showroom</option>
+                            <option value="service">Service Point</option>
+                            <option value="prio">Dealer Prioritas</option>
+                        </select>
+                    </div>
+                    <p class="find-summary" id="findSummary" role="status" aria-live="polite"></p>
+                    <div id="dealerPrio"></div>
+                    <div id="findResults" class="find-results find-list-scroll">
                         <!-- JS renders -->
                     </div>
                 </div>
             </div>
 
+            <p class="dealer-source">
+                Sumber data: REST API resmi GAC Indonesia
+                (<a href="https://aionindonesia.com/index.php?rest_route=/custom/v1/dealerships" target="_blank" rel="noopener">aionindonesia.com</a>).
+                Nomor telepon hanya ditampilkan bila dipublikasikan GAC; hubungi call center <b>021-3005-8888</b> untuk dealer lainnya.
+            </p>
+
             <!-- Demo drive CTA -->
             <div class="section-pad" style="background:var(--bg-alt);margin-top:60px">
                 <div class="section-inner" style="text-align:center;max-width:600px">
                     <h2 class="reveal" style="font-size:clamp(26px,4vw,38px);font-weight:600">Experience an AION</h2>
-                    <p class="reveal" style="color:var(--text-muted);margin:12px 0 26px">Book a demo drive at a location near you.</p>
+                    <p class="reveal" style="color:var(--text-muted);margin:12px 0 26px">Booking test drive di GAC AION Surabaya TunjunganJl. Tunjungan No.50, atau kirim ke tim sales kami.</p>
                     <div class="btn-row reveal" style="justify-content:center">
                         <a class="btn btn-dark" href="demo.html">Book a Demo Drive</a>
                     </div>
@@ -74,44 +97,263 @@
         </div>
     </main>
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Dealer Resmi GAC AION di Indonesia",
+      "numberOfItems": 58,
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1,
+          "item": {
+            "@type": "AutoPartsStore",
+            "name": "GAC AION Surabaya Tunjungan",
+            "image": "https://GANTI-DOMAIN-KAMU.com/assets/images/index-aion-V.jpeg",
+            "url": "https://GANTI-DOMAIN-KAMU.com/find-us/index.html",
+            "telephone": "+62 851-9591-6800",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Jl. Tunjungan No.50, Genteng, Kec. Genteng",
+              "addressLocality": "Surabaya",
+              "addressRegion": "Jawa Timur",
+              "postalCode": "60275",
+              "addressCountry": "ID"
+            },
+            "geo": { "@type": "GeoCoordinates", "latitude": -7.25831, "longitude": 112.737876 },
+            "areaServed": "Surabaya"
+          }
+        }
+      ]
+    }
+    </script>
+
     <div id="footer-root"></div>
 
     <script src="../js/main.js"></script>
+    <script src="../js/dealers.js"></script>
     <script src="../js/mega-menu.js"></script>
     <script src="../js/modal.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/animations.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     <script>
         (function(){
-            const LOCATIONS = [
-                { n:'AION Store — Jakarta', c:'Store', loc:'Jakarta, Indonesia', d:'2.1 km' },
-                { n:'AION Service Center — Surabaya', c:'Service Center', loc:'Surabaya, Indonesia', d:'12 km' },
-                { n:'Fast Charging — Central Jakarta', c:'Fast Charging', loc:'Jakarta, Indonesia', d:'3.4 km' },
-                { n:'Destination Charging — Bali', c:'Destination Charging', loc:'Bali, Indonesia', d:'8 km' },
-                { n:'Demo Drive — Bandung', c:'Demo Drive', loc:'Bandung, Indonesia', d:'5 km' },
-                { n:'Collision Center — Jakarta', c:'Collision Center', loc:'Jakarta, Indonesia', d:'6 km' }
-            ];
-            const wrap=document.getElementById('findResults');
-            const search=document.getElementById('findSearch');
-            const cat=document.getElementById('findCategory');
-            const catMap = { store:'Store', service:'Service Center', fast-charging:'Fast Charging', destination:'Destination Charging', demo:'Demo Drive', collision:'Collision Center' };
-            function render(){
-                const q=search.value.trim().toLowerCase();
-                const c=cat.value;
-                const list=LOCATIONS.filter(l=>{
-                    const cOk=c==='all'||l.c===catMap[c];
-                    const qOk=!q||(l.n+' '+l.loc).toLowerCase().includes(q);
-                    return cOk&&qOk;
+            const DEALERS = window.AION_DEALERS || [];
+            const PRIO = DEALERS.find(d => d.prio) || null;
+            const DEFAULT_CENTER = PRIO ? [PRIO.lat, PRIO.lng] : [-2.5, 118];
+            const DEFAULT_ZOOM = PRIO ? 14 : 5;
+
+            const results  = document.getElementById('findResults');
+            const prioWrap = document.getElementById('dealerPrio');
+            const summary  = document.getElementById('findSummary');
+            const search   = document.getElementById('findSearch');
+            const provSel  = document.getElementById('findProvince');
+            const catSel   = document.getElementById('findCategory');
+            const fallback = document.getElementById('dealerFallback');
+
+            const esc = s => String(s == null ? '' : s)
+                .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+                .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+
+            const gmapsLink = d =>
+                'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(d.lat + ',' + d.lng);
+
+            const waLink = d =>
+                'https://wa.me/' + d.wa + '?text=' + encodeURIComponent(
+                    'Halo AION ' + d.n + ', saya ingin tanya-tanya dan booking test drive di ' + d.c + '.'
+                );
+
+            /* ---------- Province dropdown ---------- */
+            [...new Set(DEALERS.map(d => d.p))].sort().forEach(p => {
+                const o = document.createElement('option');
+                o.value = p; o.textContent = p;
+                provSel.appendChild(o);
+            });
+
+            /* ---------- Map ---------- */
+            let map = null;
+            const markers = new Map();
+
+            function pinIcon(d, active){
+                const cls = ['dealer-pin'];
+                if(d.svc === 'service') cls.push('is-service');
+                if(d.prio) cls.push('is-prio');
+                if(active) cls.push('is-active');
+                return L.divIcon({
+                    className:'',
+                    html:'<div class="'+cls.join(' ')+'"><span>'+(d.svc === 'service' ? 'S' : (d.prio ? '★' : 'A'))+'</span></div>',
+                    iconSize:[d.prio ? 38 : 26, d.prio ? 38 : 26],
+                    iconAnchor:[d.prio ? 19 : 13, d.prio ? 38 : 26],
+                    popupAnchor:[0,-(d.prio ? 36 : 24)]
                 });
-                wrap.innerHTML=list.length? list.map(l=>`
-                    <div class="find-card">
-                        <div><h4>${l.n}</h4><p>${l.loc}</p></div>
-                        <span class="distance">${l.d}</span>
-                    </div>`).join('') : '<div class="inv-empty">No locations found.</div>';
             }
-            search.addEventListener('input',render);
-            cat.addEventListener('change',render);
+
+            function popupHtml(d){
+                return '<b>'+esc(d.n)+'</b>'+
+                       '<span class="dp-addr">'+esc(d.a)+'</span><br>'+
+                       '<a href="'+gmapsLink(d)+'" target="_blank" rel="noopener">Buka di Google Maps →</a>';
+            }
+
+            function initMap(){
+                if(typeof L === 'undefined' || !DEALERS.length) return;
+                try{
+                    map = L.map('dealerMap', { scrollWheelZoom:false, zoomControl:true })
+                             .setView(DEFAULT_CENTER, DEFAULT_ZOOM);
+                }catch(e){
+                    return;
+                }
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+
+                DEALERS.forEach(d => {
+                    const m = L.marker([d.lat, d.lng], {
+                        icon: pinIcon(d, false),
+                        title: d.n,
+                        alt: d.n + ' — ' + d.a
+                    }).addTo(map);
+                    m.bindPopup(popupHtml(d), { maxWidth: 280 });
+                    m.on('click', () => {
+                        const card = results.querySelector('.dealer-card[data-name="'+CSS.escape(d.n)+'"]');
+                        if(card){
+                            results.querySelectorAll('.dealer-card.is-active')
+                                  .forEach(x => x.classList.remove('is-active'));
+                            card.classList.add('is-active');
+                            card.scrollIntoView({ block:'nearest', behavior:'smooth' });
+                        }
+                    });
+                    markers.set(d.n, m);
+                });
+
+                // Peta dibuka dengan dealer prioritas sebagai titik fokus.
+                if(PRIO) openOn(PRIO, false);
+                setTimeout(() => map.invalidateSize(), 200);
+            }
+
+            function openOn(d, pan){
+                const m = markers.get(d.n);
+                if(!m) return;
+                markers.forEach((x, key) => x.setIcon(pinIcon(DEALERS.find(y => y.n === key), key === d.n)));
+                if(pan) map.flyTo([d.lat, d.lng], 14, { duration:.6 });
+                m.openPopup();
+            }
+
+            /* ---------- Rendering ---------- */
+            function badges(d){
+                const b = [];
+                if(d.svc === 'service') b.push('<span class="dealer-badge is-service">Service Point</span>');
+                else b.push('<span class="dealer-badge">Sales &amp; Showroom</span>');
+                if(d.note) b.push('<span class="dealer-badge is-3s">3S Terkonfirmasi</span>');
+                if(d.tel) b.push('<span class="dealer-badge">'+esc(d.tel)+'</span>');
+                if(d.approx) b.push('<span class="dealer-badge">Titik perkiraan</span>');
+                return '<div class="dealer-badges">'+b.join('')+'</div>';
+            }
+
+            function cardHtml(d){
+                return '<article class="dealer-card" data-name="'+esc(d.n)+'">'+
+                    '<div class="dealer-card-head">'+
+                        '<div>'+
+                            '<h4>'+esc(d.n)+'</h4>'+
+                            '<p class="dealer-addr">'+esc(d.a)+'</p>'+
+                            '<p class="dealer-region">'+esc(d.c)+' · '+esc(d.p)+'</p>'+
+                        '</div>'+
+                    '</div>'+
+                    badges(d)+
+                    (d.note ? '<p class="dealer-addr">'+esc(d.note)+'</p>' : '')+
+                    '<div class="dealer-card-actions">'+
+                        '<a class="btn btn-outline" href="'+gmapsLink(d)+'" target="_blank" rel="noopener">Google Maps</a>'+
+                        '<a class="btn btn-outline" href="'+waLink(d)+'" target="_blank" rel="noopener">WhatsApp</a>'+
+                    '</div>'+
+                '</article>';
+            }
+
+            function prioHtml(d){
+                return '<section class="dealer-prio">'+
+                    '<span class="dealer-prio-tag">★ Dealer Prioritas</span>'+
+                    '<h3>'+esc(d.n)+'</h3>'+
+                    '<p class="prio-addr">'+esc(d.a)+'</p>'+
+                    '<div class="prio-meta">'+
+                        '<span><b>'+esc(d.c)+'</b> · '+esc(d.p)+'</span>'+
+                        (d.tel ? '<span>Telp. <b>'+esc(d.tel)+'</b></span>' : '')+
+                        '<span>Layanan <b>3S</b></span>'+
+                    '</div>'+
+                    '<p class="prio-note">'+esc(d.note)+'</p>'+
+                    '<div class="btn-row">'+
+                        '<button class="btn btn-blue" type="button" data-locate="'+esc(d.n)+'">Lihat di Peta</button>'+
+                        '<a class="btn btn-outline" href="'+gmapsLink(d)+'" target="_blank" rel="noopener">Buka di Google Maps</a>'+
+                        '<a class="btn btn-outline" href="'+waLink(d)+'" target="_blank" rel="noopener">Chat WhatsApp</a>'+
+                        '<a class="btn btn-outline" href="demo.html?location='+encodeURIComponent(d.n)+'">Book Test Drive</a>'+
+                    '</div>'+
+                '</section>';
+            }
+
+            function render(){
+                const q = search.value.trim().toLowerCase();
+                const p = provSel.value;
+                const c = catSel.value;
+
+                // Filter berubah -> sorotan kartu & popup peta tidak lagi relevan.
+                results.querySelectorAll('.dealer-card.is-active')
+                       .forEach(x => x.classList.remove('is-active'));
+                if(map && PRIO && !(p === 'all' || PRIO.p === p)) map.closePopup();
+
+                const list = DEALERS.filter(d => {
+                    const pOk = p === 'all' || d.p === p;
+                    const cOk = c === 'all' || (c === 'prio' ? !!d.prio : d.svc === c);
+                    const qOk = !q || (d.n + ' ' + d.a + ' ' + d.c + ' ' + d.p).toLowerCase().includes(q);
+                    return pOk && cOk && qOk;
+                });
+
+                const dealers  = list.filter(d => d.svc !== 'service').length;
+                const services = list.length - dealers;
+                const hasPrio   = !!PRIO && list.indexOf(PRIO) > -1;
+
+                prioWrap.innerHTML = hasPrio ? prioHtml(PRIO) : '';
+                const filtered = hasPrio ? list.filter(d => d !== PRIO) : list;
+
+                results.innerHTML = list.length
+                    ? filtered.map(cardHtml).join('')
+                    : '<div class="dealer-empty"><b>Tidak ada lokasi yang cocok</b>Coba kata kunci lain atau pilih provinsi berbeda.</div>';
+
+                summary.innerHTML = '<b>'+list.length+'</b> lokasi ditemukan · '+dealers+' dealer · '+services+' service point';
+
+                const locate = prioWrap.querySelector('[data-locate]');
+                if(locate) locate.addEventListener('click', () => focusDealer(PRIO.n));
+
+                results.querySelectorAll('.dealer-card').forEach(el => {
+                    el.addEventListener('click', (e) => {
+                        if(e.target.closest('a')) return;
+                        focusDealer(el.dataset.name);
+                    });
+                });
+            }
+
+            function focusDealer(name){
+                const d = DEALERS.find(x => x.n === name);
+                if(!d) return;
+                results.querySelectorAll('.dealer-card.is-active')
+                      .forEach(x => x.classList.remove('is-active'));
+                const card = results.querySelector('.dealer-card[data-name="'+CSS.escape(name)+'"]');
+                if(card) card.classList.add('is-active');
+                if(map) openOn(d, true);
+                else window.open(gmapsLink(d), '_blank', 'noopener');
+                if(window.NOVA && window.NOVA.track){
+                    window.NOVA.track('dealer_select', { dealer:name, city:d.c, province:d.p });
+                }
+            }
+
+            search.addEventListener('input', render);
+            provSel.addEventListener('change', render);
+            catSel.addEventListener('change', render);
+            search.addEventListener('keydown', e => {
+                if(e.key === 'Enter'){ e.preventDefault(); render(); }
+            });
+
             render();
+            initMap();
+            if(!map) fallback.removeAttribute('hidden');
         })();
     </script>
 </body>
