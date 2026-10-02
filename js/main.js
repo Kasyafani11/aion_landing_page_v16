@@ -487,11 +487,46 @@
     };
 
     /* ==========================================================
+       HERO BACKDROP — siapkan layer blur untuk hero di layar kecil
+       ------------------------------------------------------------
+       Foto hero semuanya landscape (rasio 1.6-1.9), sedangkan layar
+       HP portrait (rasio ~0.6). object-fit:cover di kotak seperti itu
+       memotong 60-70% lebar gambar, dan yang terpotong biasanya badan
+       mobilnya, bukan backgroundnya.
+
+       contain tidak bisaZoommemakai CSS murni karena pseudo-element
+       tidak bisa membaca atribut src milik <img>. Jadi src-nya
+       diteruskan ke custom property --hero-src, lalu dipakai
+       responsive.css sebagai backdrop blur di ≤640px.
+
+       Kalau JS tidak jalan, var(--hero-src) kosong -> background-image
+       invalid at computed-value time -> fallback .hero--dark tetap
+       berlaku. Tidak ada gambar dobel yang terunduh: URL-nya sama,
+       jadi dari cache browser.
+       ========================================================== */
+    function wireHeroBackdrop(){
+        document.querySelectorAll('.hero-media').forEach(media=>{
+            const img = media.querySelector('img,video');
+            const src = img && (img.currentSrc || img.src || img.getAttribute('src'));
+            if(!src) return;
+            media.style.setProperty('--hero-src', `url("${src}")`);
+            // Ganti sumber (mis. gambar dimuat lambat) -> perbarui juga
+            if(img.tagName === 'IMG' && !img.complete){
+                img.addEventListener('load', ()=>{
+                    media.style.setProperty('--hero-src', `url("${img.currentSrc || img.src}")`);
+                }, { once:true });
+            }
+        });
+    }
+    window.NOVA.wireHeroBackdrop = wireHeroBackdrop;
+
+    /* ==========================================================
        BOOTSTRAP — inject shared header & footer
        ========================================================== */
     window.NOVA.renderHeader();
     window.NOVA.renderFooter();
     window.NOVA.renderWhatsApp();
     window.NOVA.renderCookieConsent();
+    wireHeroBackdrop();
 
 })();
