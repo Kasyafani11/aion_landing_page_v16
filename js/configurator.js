@@ -219,10 +219,10 @@
                             </div>
                         </div>
                         <div class="cfg-summary" id="cfgSpecs" style="margin-top:18px;padding-top:18px;border-top:1px solid var(--line)">
-                            <div class="info-bands" style="margin:0;background:transparent;gap:8px;grid-template-columns:repeat(3,1fr)">
-                                <div class="info-band" style="padding:14px"><b>${state.trim.range} ${unit}</b><span>Range</span></div>
-                                <div class="info-band" style="padding:14px"><b>${state.trim.s60}s</b><span>${accel}</span></div>
-                                <div class="info-band" style="padding:14px"><b>${state.color.name.split(' ')[0]}</b><span>Color</span></div>
+                            <div class="info-bands" style="margin:0;background:transparent;gap:8px;grid-template-columns:repeat(3,minmax(0,1fr))">
+                                <div class="info-band"><b>${state.trim.range} ${unit}</b><span>Range</span></div>
+                                <div class="info-band"><b>${state.trim.s60}s</b><span>${accel}</span></div>
+                                <div class="info-band"><b>${state.color.name.split(' ')[0]}</b><span>Color</span></div>
                             </div>
                         </div>
                         <p class="cfg-note">Prices shown are estimates for illustration. HYPTEC HT uses the official price of Rp 755.000.000 (OTR Jakarta). Option add-ons are illustrative placeholders. AION Smart Driving is an assisted driving feature and requires active driver supervision.</p>

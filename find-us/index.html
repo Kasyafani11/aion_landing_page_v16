@@ -208,13 +208,18 @@
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 }).addTo(map);
 
+                // Lebar popup ikut lebar peta: maxWidth tetap 280 membuat
+                // popup (280 + margin 32 = 312px) lebih lebar dari peta di
+                // 320px (265px) sehingga ujungnya keluar viewport.
+                const popupMax = () => Math.max(170, Math.min(280, map.getSize().x - 36));
+
                 DEALERS.forEach(d => {
                     const m = L.marker([d.lat, d.lng], {
                         icon: pinIcon(d, false),
                         title: d.n,
                         alt: d.n + ' — ' + d.a
                     }).addTo(map);
-                    m.bindPopup(popupHtml(d), { maxWidth: 280 });
+                    m.bindPopup(popupHtml(d), { maxWidth: popupMax() });
                     m.on('click', () => {
                         const card = results.querySelector('.dealer-card[data-name="'+CSS.escape(d.n)+'"]');
                         if(card){
@@ -230,6 +235,24 @@
                 // Peta dibuka dengan dealer prioritas sebagai titik fokus.
                 if(PRIO) openOn(PRIO, false);
                 setTimeout(() => map.invalidateSize(), 200);
+
+                // Rotasi HP / buka sidebar -> lebar peta berubah, popup
+                // yang sedang terbuka disesuaikan lagi.
+                if(window.ResizeObserver){
+                    let lastMapW = map.getSize().x;
+                    new ResizeObserver(() => {
+                        const w = map.getSize().x;
+                        if(w === lastMapW) return;
+                        lastMapW = w;
+                        const max = popupMax();
+                        markers.forEach((m) => {
+                            const pop = m.getPopup();
+                            if(!pop) return;
+                            pop.options.maxWidth = max;
+                            if(m.isPopupOpen()) pop.update();
+                        });
+                    }).observe(document.getElementById('dealerMap'));
+                }
             }
 
             function openOn(d, pan){

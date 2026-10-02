@@ -201,5 +201,8 @@
 
 @media (max-width:640px){
     .btn-row{ flex-direction:column; width:100%; max-width:340px; }
-    .btn-row .btn{ width:100%; }
+    /* min-width:0 wajib: .btn punya min-width:252px, sedangkan kolom
+       sempit (kartu dealer di 320px = 225px) membuat tombol meluber
+       dan dipotong kotak induknya. */
+    .btn-row .btn{ width:100%; min-width:0; }
 }

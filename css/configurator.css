@@ -81,6 +81,16 @@
 }
 .cfg-summary{ margin-bottom:18px; }
 .cfg-summary h1{ font-size:28px; font-weight:600; }
+/* Ringkasan spesifikasi: 3 kolom rata (lihat grid-template-columns
+   inline di js/configurator.js). Angka memakai font fluid + boleh
+   patah antar karakter: kolomnya hanya ~100-170px antara 901px
+   (dua kolom mulai aktif) dan 320px, sedangkan .info-band b aslinya
+   30px — membuat panel meluber horizontal di 901-1100px. */
+#cfgSpecs .info-band{ padding:14px; }
+#cfgSpecs .info-band b{
+    font-size:clamp(15px,2.4vw,30px);
+    overflow-wrap:anywhere;
+}
 .cfg-group{ margin-bottom:24px; }
 .cfg-group-title{
     /* 11px -> 12px: label kecil di atas ambang keterbacaan (sama
@@ -146,6 +156,15 @@
 .cfg-order-bar .btn{ min-width:0; padding:12px 26px; }
 
 @media (max-width:640px){
+    /* Padding 28px kiri-kanan di 320px hanya menyisakan 264px
+       konten, dipakai 3 kolom ringkasan -> angka 30px tidak muat dan
+       track 1fr terdorong oleh min-content sehingga panel jadi bisa
+       di-scroll horizontal. Padding disamakan dengan section. */
+    .cfg-controls{ padding:20px 16px; }
+    #cfgSpecs .info-band{ padding:12px 6px; }
+    #cfgSpecs .info-band b{ font-size:clamp(15px,4.2vw,19px); }
+    #cfgSpecs .info-band span{ font-size:12px; }
+
     .cfg-order-bar{
         flex-direction:column;
         align-items:stretch;
@@ -163,4 +182,9 @@
     .cfg-layout{ grid-template-columns:1fr; height:auto; }
     .cfg-preview{ height:44vh; min-height:300px; }
     .cfg-live-price{ left:auto; right:14px; bottom:14px; left:14px; text-align:center; }
+    /* Preview hanya 44vh sementara gambar mobil 1.7:1 selebar 90%
+       wrap (bikin tinggi 406px di tablet 768px) — exceed tinggi
+       preview, jadi mobil terpotong atas-bawah. Batasi tinggi gambar
+       per viewport + contain supaya utuh dan tetap centered. */
+    .cfg-car{ max-height:38vh; object-fit:contain; }
 }
